@@ -1,0 +1,2 @@
+include:
+  remote: 'https://git.esn.org/dimitris.kritsotakis/gitlab-ci-satis-template/-/raw/master/.gitlab-ci.yml'

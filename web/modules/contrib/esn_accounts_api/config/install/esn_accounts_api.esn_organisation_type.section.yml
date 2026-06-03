@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - esn_accounts_api
+id: section
+label: 'ESN Section'
+description: 'Bundle section for the esn_organisation type.'

@@ -1,0 +1,7 @@
+# Menu for the module settings.
+satellite_api_accounts.settings_form :
+  title: 'Satellite-specific Accounts API Settings'
+  parent: esn_accounts_api.settings_form
+  description: 'Configure the display of error messages and database logging.'
+  route_name: satellite_accounts_api_integration.form
+  weight: -15

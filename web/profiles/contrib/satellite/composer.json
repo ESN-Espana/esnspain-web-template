@@ -1,0 +1,192 @@
+{
+    "name": "esn/satellite-profile",
+    "description": "Satellite 5 Profile by the IT Committee of ESN International",
+    "type": "drupal-profile",
+    "license": "GPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "IT Committee",
+            "email": "it-team@esn.org",
+            "role": "Project Manager"
+        },
+        {
+            "name": "Marco von Frieling",
+            "email": "mvonfrie@edu.aau.at",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "email:": "it-support@esn.org",
+        "issues": "https://git.esn.org/groups/satellite/5/-/issues"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.esn.org"
+        },
+        {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "ext-curl": "*",
+        "ext-dom": "*",
+        "ext-gd": "*",
+        "composer/installers": "^2.1",
+        "cweagans/composer-patches": "~1.7",
+        "drupal/admin_toolbar": "^3.6",
+        "drupal/coffee": "^2.0",
+        "drupal/color": "^1.0",
+        "drupal/components": "^3.2",
+        "drupal/config_update": "^2.0@alpha",
+        "drupal/core-composer-scaffold": "~10.6.3",
+        "drupal/core-recommended": "~10.6.3",
+        "drupal/crop": "^2.5",
+        "drupal/entity_reference_revisions": "^1.14",
+        "drupal/externalauth": "^2.0",
+        "drupal/field_group": "^4.0",
+        "drupal/focal_point": "^2.1",
+        "drupal/gin": "^4.0",
+        "drupal/gin_toolbar": "^2.0",
+        "drupal/image_field_to_media": "^3.0",
+        "drupal/migrate_plus": "^6.0",
+        "drupal/migrate_tools": "^6.1",
+        "drupal/module_filter": "^5.0",
+        "drupal/openid_connect": "^3.0@alpha",
+        "drupal/paragraphs": "^1.20",
+        "drupal/pathauto": "^1.14",
+        "drupal/radix": "^5.0",
+        "drupal/token": "^1.17",
+        "drupal/twig_field_value": "^2.0",
+        "drupal/twig_tweak": "^3.4",
+        "drupal/twigsuggest": "^2.0@RC",
+        "drupal/update_helper": "^4.1",
+        "drupal/upgrade_status": "^4.3",
+        "drush/drush": "^13.7",
+        "esn/esn_accounts_api": "~1.1.0",
+        "esn/esn_core": "^1.0",
+        "josegonzalez/dotenv": "^3.2",
+        "mglaman/composer-drupal-lenient": "^1.0"
+    },
+    "require-dev": {
+        "drupal/core-dev": "~10.6.3",
+        "drupal/devel": "^5.5",
+        "drupal/devel_entity_updates": "^5.0",
+        "drupal/migrate_devel": "^3.0",
+        "mglaman/phpstan-drupal": "^1.1.10",
+        "php-parallel-lint/php-parallel-lint": "^1.2",
+        "phpspec/prophecy-phpunit": "^2.0",
+        "phpstan/phpstan": "^1.4.5",
+        "phpstan/phpstan-deprecation-rules": "^1.0.0",
+        "roave/security-advisories": "dev-latest",
+        "squizlabs/php_codesniffer": "*"
+    },
+    "autoload": {
+      "psr-4": {
+        "Drupal\\satellite\\": "src"
+      }
+   },
+    "autoload-dev": {
+        "psr-4": {
+            "Drupal\\Tests\\satellite\\": "tests\\src"
+
+        },
+        "classmap": [
+            ".spoons/ScriptHandler.php"
+        ],
+        "files": [
+            "load.environment.php"
+        ]
+    },
+    "scripts": {
+        "reset": "rm -rf vendor/ web/ composer.lock && git checkout -- web/",
+        "si": "drush si -v --db-url=${SIMPLETEST_DB:-mysql://db:db@db/db}",
+        "phpcs": "bin/phpcs --runtime-set ignore_warnings_on_exit 1 --runtime-set ignore_errors_on_exit 1 web/profiles/",
+        "lint": "bin/parallel-lint --exclude web --exclude vendor .",
+        "phpstan": "bin/phpstan analyse",
+        "post-install-cmd": [
+            "Spoons\\ScriptHandler::createSymlinks"
+        ],
+        "post-update-cmd": [
+            "Spoons\\ScriptHandler::createSymlinks"
+        ]
+    },
+    "config": {
+        "bin-dir": "bin",
+        "process-timeout": 36000,
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/installers": true,
+            "cweagans/composer-patches": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "drupal/core-composer-scaffold": true,
+            "mglaman/composer-drupal-lenient": true,
+            "php-http/discovery": true,
+            "phpstan/extension-installer": true,
+            "tbachert/spi": true
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "5.0.x-dev"
+        },
+        "patchLevel": {
+            "drupal/core": "-p2"
+        },
+        "enable-patching": true,
+        "patches": {
+            "drupal/update_helper": {
+                "Issue #3389340: Delete config action does not completely delete nested arrays": "https://git.drupalcode.org/project/update_helper/-/merge_requests/19.diff"
+            },
+            "drupal/core": {
+                "3456176: 10.3 issue with messages": "https://www.drupal.org/files/issues/2024-06-28/3456176-45-missing-status-messages-theme-suggestions.patch"
+            }
+        },
+      "installer-paths": {
+        "web/core": [
+          "type:drupal-core"
+        ],
+        "web/libraries/{$name}": [
+          "type:drupal-library"
+        ],
+        "web/modules/contrib/{$name}": [
+          "type:drupal-module"
+        ],
+        "web/profiles/contrib/{$name}": [
+          "type:drupal-profile"
+        ],
+        "web/themes/contrib/{$name}": [
+          "type:drupal-theme"
+        ],
+        "drush/Commands/contrib/{$name}": [
+          "type:drupal-drush"
+        ],
+        "web/modules/custom/{$name}": [
+          "type:drupal-custom-module"
+        ],
+        "web/profiles/custom/{$name}": [
+          "type:drupal-custom-profile"
+        ],
+        "web/themes/custom/{$name}": [
+          "type:drupal-custom-theme"
+        ]
+      },
+        "drupal-scaffold": {
+            "locations": {
+                "web-root": "web/"
+            },
+            "file-mapping": {
+                "[project-root]/.editorconfig": false,
+                "[project-root]/.gitattributes": false,
+                "[web-root]/sites/default/settings.php": "assets/sites/default/settings.php"
+            }
+        },
+        "drupal-lenient": {
+            "allowed-list": ["drupal/radix"]
+        }
+    }
+}

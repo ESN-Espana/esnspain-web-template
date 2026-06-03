@@ -1,0 +1,67 @@
+name: 'ESN Satellite'
+type: profile
+description: 'Satellite 5 Profile by the IT Committee of ESN International'
+core_version_requirement: ^10 || ^11
+project: satellite
+package: 'ESN Satellite'
+
+version: '5.1.1'
+
+# Dependencies that ESN Satellite can not live without
+dependencies:
+  # Core
+  - drupal:breakpoint
+  - drupal:config
+  - drupal:node
+  - drupal:toolbar
+  - drupal:user
+  - drupal:views
+  # Contrib
+  - update_helper:update_helper
+  # Satellite
+  - satellite:satellite_core
+#  - satellite:satellite_api_accounts
+  # The following are theme dependencies, but are not installed automatically.
+  - components:components
+  - twig_tweak:twig_tweak
+  - twig_field_value:twig_field_value
+
+# Modules that are installed by default but can be uninstalled.
+install:
+  # Core
+  - drupal:block
+  - drupal:big_pipe
+  - drupal:ckeditor5
+  - drupal:contextual
+  - drupal:dblog
+  - drupal:editor
+  - drupal:field
+  - drupal:file
+  - drupal:image
+  - drupal:link
+  - drupal:path
+  - drupal:user
+  - drupal:views
+  # Contrib
+  - admin_toolbar_tools:admin_toolbar_tools
+  - field_group:field_group
+  - gin_toolbar:gin_toolbar
+  - module_filter:module_filter
+  - update_helper:update_helper
+  # Satellite
+  - satellite:satellite_paragraphs
+  - satellite:satellite_homepage_block_info
+  - satellite:satellite_news
+  - satellite:satellite_social_media
+  - satellite:satellite_spotlight
+  - satellite:satellite_basic_page
+  - satellite:satellite_media
+
+
+themes:
+  - gin
+  - satellite_theme
+
+distribution:
+  name: 'ESN Satellite'
+  langcode: en

@@ -1,0 +1,20 @@
+name: 'Satellite Core'
+type: module
+description: 'Satellite 5 Core functionality by the IT Committee of ESN International'
+core_version_requirement: ^10 || ^11
+project: satellite_core
+package: 'ESN Satellite'
+
+version: '5.1.1'
+
+# Dependencies that ESN Satellite can not live without
+dependencies:
+  # Core
+  - drupal:ckeditor5
+  - drupal:editor
+  - drupal:filter
+  - drupal:media
+  - drupal:media_library
+  # Contrib
+  # Satellite
+  - satellite:satellite_basic_page

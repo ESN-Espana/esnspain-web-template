@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - focal_point
+name: spotlight
+label: Spotlight
+effects:
+  0c408205-bc77-48fd-8d17-c9f7b9a92383:
+    uuid: 0c408205-bc77-48fd-8d17-c9f7b9a92383
+    id: focal_point_scale_and_crop
+    weight: 2
+    data:
+      width: 765
+      height: 422
+      crop_type: focal_point

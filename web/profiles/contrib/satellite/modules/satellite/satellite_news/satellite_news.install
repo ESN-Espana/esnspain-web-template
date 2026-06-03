@@ -1,0 +1,171 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall module functions.
+ */
+
+use Drupal\Core\Serialization\Yaml;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\views\Views;
+
+/**
+ * Update node type dependency, hide view block when there is no content.
+ */
+function satellite_news_update_9001() {
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('satellite_news', 'satellite_news_update_9001');
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}
+
+/**
+ * Configuration update.
+ */
+function satellite_news_update_9002() {
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('satellite_news', 'satellite_news_update_9002');
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}
+
+/**
+ * Add page display to news view.
+ */
+function satellite_news_update_9003() {
+  $news_view = Views::getView('news');
+  $news_view->storage->addDisplay(title: 'Page', id: 'page_1');
+  $displays = $news_view->storage->get('display');
+  $displays['page_1']['display_options']['path'] = 'news';
+  $news_view->storage->set('display', $displays);
+  $news_view->save();
+  // We need to rebuild the routes to discover the route to the
+  // view display.
+  \Drupal::service('router.builder')->rebuild();
+
+}
+
+/**
+ * Install the new field on news content type.
+ */
+function satellite_news_update_9004() {
+  $module_path = \Drupal::service('extension.list.module')->getPath('satellite_news');
+
+  $yml = Yaml::decode(file_get_contents($module_path . '/config/install/field.storage.node.field_image_media.yml'));
+  if (!FieldStorageConfig::loadByName($yml['entity_type'], $yml['field_name'])) {
+    FieldStorageConfig::create($yml)->save();
+  }
+
+  $yml = Yaml::decode(file_get_contents($module_path . '/config/optional/field.field.node.news.field_image_media.yml'));
+  if (!FieldConfig::loadByName($yml['entity_type'], $yml['bundle'], $yml['field_name'])) {
+    FieldConfig::create($yml)->save();
+  }
+
+  $field_media_name = 'field_image_media';
+  $field_image_name = 'field_image';
+
+  $field = \Drupal::entityTypeManager()->getStorage('field_config')->loadByProperties([
+    'field_name' => $field_media_name,
+    'entity_type' => 'node',
+    'bundle' => 'news',
+    ]);
+  $field = reset($field);
+  $properties = [
+    'targetEntityType' => $field->getTargetEntityTypeId(),
+    'bundle' => $field->getTargetBundle(),
+  ];
+  if ($form_displays = \Drupal::entityTypeManager()->getStorage('entity_form_display')->loadByProperties($properties)) {
+    foreach ($form_displays as $form_display) {
+      $form_display->setComponent($field_media_name, [
+        'type' => 'media_library_widget',
+        'region' => 'content',
+        'settings' => [
+          'media_types' => [],
+        ],
+        'third_party_settings' => [],
+      ])->save();
+    }
+    // Hide old image field.
+    $form_display->removeComponent($field_image_name)->save();
+  }
+
+  if ($view_displays = \Drupal::entityTypeManager()->getStorage('entity_view_display')->loadByProperties($properties)) {
+    foreach ($view_displays as $view_display) {
+      switch ($view_display->getMode()) {
+        case 'default':
+          // Remove old field_image and hide field_image_media for now.
+          $view_display
+            ->removeComponent($field_image_name)
+            ->removeComponent($field_media_name)
+            ->save();
+          break;
+
+        case 'teaser':
+          $view_display->removeComponent($field_image_name);
+          $view_display->setComponent($field_media_name, [
+            'type' => 'entity_reference_entity_view',
+            'label' => 'hidden',
+            'settings' => [
+              'view_mode' => 'default',
+              'link' => FALSE,
+            ],
+            'third_party_settings' => [],
+            'weight' => 1,
+            'region' => 'content',
+          ]);
+          $view_display->save();
+          break;
+      }
+    }
+  }
+}
+
+/**
+ * Show image on news entity view display.
+ */
+function satellite_news_update_9005() {
+  $field_media_name = 'field_image_media';
+  $field = \Drupal::entityTypeManager()->getStorage('field_config')->loadByProperties(['field_name' => $field_media_name]);
+  $field = reset($field);
+  $properties = [
+    'targetEntityType' => $field->getTargetEntityTypeId(),
+    'bundle' => $field->getTargetBundle(),
+  ];
+  if ($view_displays = \Drupal::entityTypeManager()->getStorage('entity_view_display')->loadByProperties($properties)) {
+    foreach ($view_displays as $view_display) {
+      if ($view_display->getMode() == 'default') {
+        $view_display->setComponent($field_media_name, [
+          'type' => 'media_thumbnail',
+          'label' => 'hidden',
+          'settings' => [
+            'image_link' => '',
+            'image_style' => 'spotlight',
+            'image_loading' => [
+              'attribute' => 'lazy',
+            ],
+          ],
+          'third_party_settings' => [],
+          'weight' => 3,
+          'region' => 'content',
+        ]);
+      }
+    }
+  }
+}
+
+/**
+ * Enable promote to front page for all new 'news' content.
+ */
+function satellite_news_update_9006() {
+  $fields = \Drupal::service('entity_field.manager')->getFieldDefinitions('node', 'news');
+  $fields['promote']->setDefaultValue(TRUE)->save();
+}

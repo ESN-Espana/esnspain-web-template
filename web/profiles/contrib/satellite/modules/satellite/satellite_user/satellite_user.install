@@ -1,0 +1,36 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall module functions.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function satellite_user_install() {
+
+  // Get the module_installer service to enable modules.
+  $installer = \Drupal::service('module_installer');
+  // Install multiple modules.
+  $installer->install(['externalauth', 'openid_connect']);
+
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('satellite_user', 'satellite_user_install');
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function satellite_user_uninstall() {
+
+  // Get the module_installer service to enable modules.
+  $installer = \Drupal::service('module_installer');
+  // Uninstall modules that were installed with this module.
+  $installer->uninstall(['openid_connect', 'externalauth'], FALSE);
+}

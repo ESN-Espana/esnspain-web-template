@@ -1,0 +1,52 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a view of unformatted rows.
+ *
+ * Available variables:
+ * - title: The title of this group of rows. May be empty.
+ * - rows: A list of the view's row items.
+ *   - attributes: The row's HTML attributes.
+ *   - content: The row's content.
+ * - view: The view object.
+ * - default_row_class: A flag indicating whether default classes should be
+ *   used on rows.
+ *
+ * @see template_preprocess_views_view_unformatted()
+ *
+ * @ingroup themeable
+ */
+#}
+{% if title %}
+  <h3>{{ title }}</h3>
+{% endif %}
+{% for row in rows %}
+  {% set row_classes = [
+    default_row_class ? 'views-row',
+    'container-fluid',
+  ] %}
+  {% set field_link = row.content.field_link.0 %}
+  <div{{ row.attributes.addClass(row_classes) }}>
+    <div class="row">
+      <div class="col-lg-6 d-flex align-items-center bg-esn-cyan text-white">
+        <div class="hero-content p-4">
+          <h1 class="display-4 fw-bold">{{ site_name }}</h1>
+          {{ row.content.field_body | field_value }}
+          <div class="gap-2 d-md-flex">
+            <a class="btn btn-link action-link"
+               href="{{ path(field_link['#url'].routeName, field_link['#url'].routeParameters) }}">
+              {{ field_link['#title'] }}
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 p-0">
+        <div class="hero-image-container">
+          <div class="hero-gradient"></div>
+          <img src="{{ row.content.field_image.0['#markup'] }}" class="img-fluid" alt="Image">
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endfor %}

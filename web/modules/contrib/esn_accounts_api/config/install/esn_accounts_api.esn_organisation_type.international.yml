@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - esn_accounts_api
+id: international
+label: 'ESN International'
+description: 'Bundle international for the esn_organisation type.'

@@ -1,0 +1,55 @@
+id: paragraphs
+label: Dummy Paragraphs
+migration_group: satellite_demo
+migration_tags:
+  - Satellite Demo
+  - Satellite Paragraphs
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      sample_id: texttitlelink1
+      bundle: text_with_title_and_link
+      title: Buddy programme
+      body_text: |
+        <p> You can be the best friend of Erasmus, they need your help
+        in this weird country. They can pay in beers or kisses. Become buddy
+        buddys </p>
+      link_url: '<front>'
+      link_text: Become buddy!
+    -
+      sample_id: texttitlelink2
+      bundle: text_with_title_and_link
+      title: Join us
+      body_text: |
+        <p> If you're bored with your life and need some excitement, join
+        us for never ending drama! You can apply below, but remember - it will
+        be only your responsibility. Don't blame at we don't bite, but tears
+        will be salty. Join us here...if you dare </p>
+      link_url: '<front>'
+      link_text: Join us here!
+    -
+      sample_id: texttitlelink3
+      bundle: text_with_title_and_link
+      title: Events
+      body_text: |
+        <p>We do some cool and less cool events where you can have fun,
+        meet people and break ice. They are not super secret you can check
+        out them on our Facebook. Checkout our amazing events</p>
+      link_url: '<front>'
+      link_text: Check out our amazing events
+  ids:
+    sample_id:
+      type: string
+process:
+  type: bundle
+  'field_text/value': body_text
+  'field_text/format':
+    plugin: default_value
+    default_value: basic_html
+  'field_link/uri':
+    plugin: link_uri
+    source: link_url
+  'field_link/title': link_text
+destination:
+  plugin: entity_reference_revisions:paragraph

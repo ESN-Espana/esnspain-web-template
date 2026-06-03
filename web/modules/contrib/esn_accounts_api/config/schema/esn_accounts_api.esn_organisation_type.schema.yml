@@ -1,0 +1,13 @@
+esn_accounts_api.esn_organisation_type.*:
+  type: config_entity
+  label: 'Organisation type'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    description:
+      type: 'text'
+      label: 'Description'

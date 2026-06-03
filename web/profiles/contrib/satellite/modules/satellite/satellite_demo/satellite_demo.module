@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * @file
+ * Satellite Demo content module file.
+ */
+
+// phpcs:disable
+/**
+ * Return the absolute path of satellite profile.
+ */
+function _satellite_get_profile_path(): string {
+  return DRUPAL_ROOT . '/' . \Drupal::service('extension.list.profile')->getPath('satellite');
+}
+
+//phpcs:enable

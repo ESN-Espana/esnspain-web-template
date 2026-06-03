@@ -1,0 +1,28 @@
+core.entity_view_display.node.news.default:
+  expected_config:
+    content:
+      field_image:
+        settings:
+          image_loading:
+            attribute: lazy
+  update_actions:
+    delete:
+      content:
+        field_image:
+          settings:
+            image_loading:
+              attribute: lazy
+core.entity_view_display.node.news.teaser:
+  expected_config:
+    content:
+      field_image:
+        settings:
+          image_loading:
+            attribute: lazy
+  update_actions:
+    delete:
+      content:
+        field_image:
+          settings:
+            image_loading:
+              attribute: lazy

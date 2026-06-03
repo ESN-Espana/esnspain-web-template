@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - esn_accounts_api
+id: country
+label: 'ESN Country'
+description: 'Bundle country for the esn_organisation type.'

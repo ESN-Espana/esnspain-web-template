@@ -1,0 +1,18 @@
+name: Satellite Homepage Info
+type: module
+description: 'Provides a homepage info entity and the blocks.'
+package: ESN Satellite
+core_version_requirement: ^10 || ^11
+version: '5.1.1'
+
+
+# Dependencies that ESN Satellite can not live without
+dependencies:
+  # Core
+  - drupal:block_content
+  - drupal:options
+  # Contrib
+  - entity_reference_revisions:entity_reference_revisions
+  - paragraphs:paragraphs
+  # Custom
+  - satellite:satellite_paragraphs

@@ -1,0 +1,38 @@
+pathauto.pattern.news_pattern:
+  expected_config:
+    selection_criteria:
+      23811dde-71f3-4da4-93e1-8b1577cacac0:
+        id: 'entity_bundle:node'
+  update_actions:
+    change:
+      selection_criteria:
+        23811dde-71f3-4da4-93e1-8b1577cacac0:
+          id: node_type
+core.entity_view_display.node.news.default:
+  expected_config:
+    content:
+      field_image:
+        settings:
+          image_loading:
+            attribute: lazy
+  update_actions:
+    delete:
+      content:
+        field_image:
+          settings:
+            image_loading:
+              attribute: lazy
+core.entity_view_display.node.news.teaser:
+  expected_config:
+    content:
+      field_image:
+        settings:
+          image_loading:
+            attribute: lazy
+  update_actions:
+    delete:
+      content:
+        field_image:
+          settings:
+            image_loading:
+              attribute: lazy

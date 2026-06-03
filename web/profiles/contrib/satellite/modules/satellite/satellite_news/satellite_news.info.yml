@@ -1,0 +1,26 @@
+name: 'Satellite News'
+type: module
+description: 'News content bundle, views etc.'
+core_version_requirement : ^10 || ^11
+project: satellite_news
+package: 'ESN Satellite'
+version: '5.1.1'
+dependencies:
+  # Core
+  - drupal:field
+  - drupal:file
+  - drupal:image
+  - drupal:node
+  - drupal:path
+  - drupal:system
+  - drupal:taxonomy
+  - drupal:text
+  - drupal:user
+  - drupal:views
+  # Contrib
+  - paragraphs:paragraphs
+  - entity_reference_revisions:entity_reference_revisions
+  # Custom
+  - satellite:satellite_basic_page
+  - satellite:satellite_media
+#  - satellite_theme:satellite_theme

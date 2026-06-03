@@ -1,0 +1,89 @@
+editor.editor.basic_html:
+  expected_config: {  }
+  update_actions:
+    add:
+      settings:
+        plugins:
+          media_media:
+            allow_view_mode_override: false
+        toolbar:
+          items:
+            - drupalMedia
+editor.editor.full_html:
+  expected_config: {  }
+  update_actions:
+    add:
+      settings:
+        plugins:
+          media_media:
+            allow_view_mode_override: false
+        toolbar:
+          items:
+            - drupalMedia
+filter.format.basic_html:
+  expected_config:
+    filters:
+      filter_html:
+        settings:
+          allowed_html: '<br> <p class="text-align-left text-align-center text-align-right text-align-justify"> <h2 id class="text-align-left text-align-center text-align-right text-align-justify"> <h3 id class="text-align-left text-align-center text-align-right text-align-justify"> <h4 id class="text-align-left text-align-center text-align-right text-align-justify"> <h5 id class="text-align-left text-align-center text-align-right text-align-justify"> <h6 id class="text-align-left text-align-center text-align-right text-align-justify"> <cite> <dl> <dt> <dd> <span> <a hreflang href> <blockquote cite> <ul type> <ol type start> <img data-entity-type data-entity-uuid src alt height width data-caption data-align> <strong> <em> <u> <code> <li>'
+  update_actions:
+    add:
+      filters:
+        media_embed:
+          id: media_embed
+          provider: media
+          settings:
+            allowed_media_types: {  }
+            allowed_view_modes: {  }
+            default_view_mode: default
+          status: true
+          weight: 100
+    change:
+      filters:
+        filter_html:
+          settings:
+            allowed_html: '<br> <p class="text-align-left text-align-center text-align-right text-align-justify"> <h2 id class="text-align-left text-align-center text-align-right text-align-justify"> <h3 id class="text-align-left text-align-center text-align-right text-align-justify"> <h4 id class="text-align-left text-align-center text-align-right text-align-justify"> <h5 id class="text-align-left text-align-center text-align-right text-align-justify"> <h6 id class="text-align-left text-align-center text-align-right text-align-justify"> <cite> <dl> <dt> <dd> <span> <a hreflang href> <blockquote cite> <ul type> <ol type start> <img data-entity-type data-entity-uuid src alt height width data-caption data-align> <strong> <em> <u> <code> <li> <drupal-media data-entity-type data-entity-uuid alt data-caption data-align>'
+filter.format.full_html:
+  expected_config: {  }
+  update_actions:
+    add:
+      filters:
+        media_embed:
+          id: media_embed
+          provider: media
+          settings:
+            allowed_media_types: {  }
+            allowed_view_modes: {  }
+            default_view_mode: default
+          status: true
+          weight: 100
+user.role.authenticated:
+  expected_config: {  }
+  update_actions:
+    add:
+      permissions:
+        - 'create media'
+        - 'delete media'
+        - 'update media'
+        - 'view media'
+user.role.contentmanager:
+  expected_config: {  }
+  update_actions:
+    add:
+      permissions:
+        - 'access media overview'
+        - 'administer media'
+        - 'delete any media'
+        - 'update any media'
+        - 'view all media revisions'
+user.role.sitemanager:
+  expected_config: {  }
+  update_actions:
+    add:
+      permissions:
+        - 'access media overview'
+        - 'administer media'
+        - 'administer media types'
+        - 'delete any media'
+        - 'update any media'
+        - 'view all media revisions'

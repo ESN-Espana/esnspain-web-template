@@ -1,0 +1,7 @@
+esn.settings:
+  path: '/admin/esn'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'ESN Settings'
+  requirements:
+    _permission: 'edit esn configuration'

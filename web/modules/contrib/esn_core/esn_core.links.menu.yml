@@ -1,0 +1,6 @@
+esn.settings:
+  title: ESN Settings
+  route_name: esn.settings
+  parent: system.admin
+  description: 'Configure ESN settings.'
+  weight: 8

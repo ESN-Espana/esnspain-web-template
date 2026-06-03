@@ -1,0 +1,27 @@
+services:
+  web:
+    image: drupal:10-apache
+    container_name: drupal-web
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/opt/drupal
+    env_file:
+      - .env
+    depends_on:
+      - db
+
+  db:
+    image: mariadb:11
+    container_name: drupal-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:

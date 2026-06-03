@@ -1,0 +1,12 @@
+user.role.contentmanager:
+  expected_config:  {  }
+  update_actions:
+    add:
+      permissions:
+        - 'access toolbar'
+user.role.sitemanager:
+  expected_config:  {  }
+  update_actions:
+    add:
+      permissions:
+        - 'access toolbar'

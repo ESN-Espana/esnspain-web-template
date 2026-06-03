@@ -1,0 +1,12 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - satellite_paragraphs # If we don't add this dependency, Drupal will not remove the paragraph type when we uninstall our module.
+id: text_image
+label: 'Text with image'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

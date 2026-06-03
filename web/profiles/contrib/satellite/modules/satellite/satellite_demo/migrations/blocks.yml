@@ -1,0 +1,97 @@
+id: blocks
+label: Demo blocks
+migration_group: satellite_demo
+migration_tags:
+  - Satellite Demo
+  - Satellite Blocks
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      label: 'info outgoing'
+      paragraph_body_1: texttitlelink1
+      category: 'outgoing'
+      subtitle: 'YOUR AMAZING ADVENTURE WITHOUT GOING ON ERASMUS'
+      title: 'For local friends'
+      bundle: homepage_entry_info
+    -
+      id: 2
+      label: 'info incoming students'
+      paragraph_body_1: texttitlelink3
+      category: 'incoming'
+      subtitle: 'YOUR AMAZING ERASMUS ADVENTURE IN OUR CITY'
+      title: 'For incoming students'
+      bundle: homepage_entry_info
+    -
+      id: 3
+      label: "ESN Section"
+      body: '<p>Your best Erasmus experience starts here! We are working hard to make your stay even better. Join our events!&nbsp; Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum</p>'
+      image_filename: spotlight.png
+      link: '<front>'
+      link_text: 'Read more about us'
+      bundle: spotlight
+  ids:
+    id:
+      type: integer
+process:
+  info: label
+  field_title: title
+  field_subtitle: subtitle
+  field_category: category
+  pseudo_paragraph_1:
+    -
+      plugin: skip_on_empty
+      method: process
+      source: paragraph_body_1
+    -
+      plugin: migration_lookup
+      migration: paragraphs
+      source: paragraph_body_1
+  field_paragraph_body:
+    -
+      plugin: skip_on_empty
+      method: process
+      source: paragraph_body_1
+    -
+      plugin: sub_process
+      source:
+        - '@pseudo_paragraph_1'
+      process:
+        target_id: '0'
+        target_revision_id: '1'
+  field_body/value:
+    -
+      plugin: skip_on_empty
+      source: body
+      method: process
+  field_body/format:
+    - plugin : default_value
+      default_value : basic_html
+  type: bundle
+  'field_link/uri':
+    - plugin : skip_on_empty
+      source : link
+      method : process
+    -
+      plugin: link_uri
+      source: link
+  'field_link/title': link_text
+  'field_image/target_id':
+    -
+      plugin: skip_on_empty
+      source: image_filename
+      method: process
+    -
+      plugin: entity_lookup
+      entity_type: file
+      value_key: filename
+      source: image_filename
+  field_image/alt: "Person getting his face painted"
+destination:
+  plugin: entity:block_content
+migration_dependencies:
+  required:
+    - paragraphs
+    - files
+  optional: []

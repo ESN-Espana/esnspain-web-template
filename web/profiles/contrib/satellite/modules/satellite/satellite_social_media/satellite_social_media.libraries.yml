@@ -1,0 +1,5 @@
+social-media-logo:
+  version: 1.x
+  css:
+    layout:
+      css/social_media.css: {}

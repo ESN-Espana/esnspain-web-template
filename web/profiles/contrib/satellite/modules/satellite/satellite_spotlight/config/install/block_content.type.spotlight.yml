@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - satellite_spotlight # If we don't add this dependency, Drupal will not remove the content type when we uninstall our module.
+id: spotlight
+label: Spotlight
+revision: true
+description: 'Block type to be displayed to the spotlight in homepage'

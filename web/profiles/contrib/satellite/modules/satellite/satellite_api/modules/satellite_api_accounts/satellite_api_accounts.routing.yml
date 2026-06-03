@@ -1,0 +1,7 @@
+satellite_accounts_api_integration.form:
+  path: 'admin/esn/satellite-accounts-api'
+  defaults:
+    _form: '\Drupal\satellite_api_accounts\Form\AccountsApiIntegrationForm'
+    _title: 'Accounts API Integration Settings'
+  requirements:
+    _permission: 'edit esn configuration'

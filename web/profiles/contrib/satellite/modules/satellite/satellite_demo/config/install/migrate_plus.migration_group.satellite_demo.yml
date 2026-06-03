@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {  }
+id: satellite_demo
+label: 'Satellite Demo Content'
+description: 'A group of content migrations for demo content'
+source_type: ''
+module: null
+shared_configuration: null

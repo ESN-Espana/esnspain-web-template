@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * @file
+ * Functionality for connecting Satellite with Accounts API.
+ */
+
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function satellite_api_accounts_preprocess_page(&$variables) {
+
+  $config = \Drupal::config('satellite_api_accounts.settings');
+
+  if ($config->get('selected_organisation_code') === NULL) {
+
+    $message_text = t('There are missing required information in order for the website to work properly. Please fill them in <a href=":form_link">here</a>.', [
+      ':form_link' => Url::fromRoute('satellite_accounts_api_integration.form')
+        ->toString(),
+    ]);
+
+    $messenger = \Drupal::messenger();
+    $messenger->addError($message_text);
+  }
+
+}

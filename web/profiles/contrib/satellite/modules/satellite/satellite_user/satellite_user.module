@@ -1,0 +1,133 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for 'EG Users' module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\user\UserInterface;
+
+/**
+ * Implements hook_openid_connect_pre_authorize().
+ */
+function satellite_user_openid_connect_pre_authorize($account, array $context) {
+
+  $groups = ($context['userinfo']['groups'] ?? []);
+  if (!empty($groups)) {
+    $satellite_api_settings = \Drupal::config('satellite_api_accounts.settings');
+    $selected_organisation_code = $satellite_api_settings->get('selected_organisation_code');
+
+    // Allowed roles from Oauth that grant its user access.
+    $valid_roles = [
+      // HQ roles (individual).
+      'INT:international-wpa',
+      // IT-Support team.
+      'PERMISSIONS:it-it_support',
+      // Members of the selected organisation.
+      $selected_organisation_code . ':all',
+    ];
+    if ($satellite_api_settings->get('level') === 'local') {
+      $country_code = $satellite_api_settings->get('country');
+      $valid_roles[] = "$country_code:country-webmaster";
+    }
+
+    if (!empty(array_intersect($groups, $valid_roles))) {
+      return TRUE;
+    }
+  }
+
+  \Drupal::messenger()
+    ->addError(t("Your account does not have permissions to log in to this platform. Please contact the organisation's webmaster."));
+  return FALSE;
+}
+
+/**
+ * Implements hook_openid_connect_userinfo_save().
+ */
+function satellite_user_openid_connect_userinfo_save(UserInterface $account, array $context) {
+
+  $groups = ($context['userinfo']['groups'] ?? []);
+  if (!empty($groups)) {
+
+    $satellite_api_settings = \Drupal::config('satellite_api_accounts.settings');
+    $selected_organisation_code = $satellite_api_settings->get('selected_organisation_code');
+    $selected_organisation_level = $satellite_api_settings->get('level');
+    $country_code = $satellite_api_settings->get('country');
+
+    // Array of 'role (platform) => map_roles (oauth)' to later loop and assign.
+    $mapping_roles_array = [
+      'administrator' => [
+        'INT:international-wpa',
+        'PERMISSIONS:it-it_support',
+        $country_code . ':country-webmaster',
+      ],
+      'contentmanager' => [],
+    ];
+
+    switch ($selected_organisation_level) {
+      case 'local':
+        $mapping_roles_array['administrator'][] = $selected_organisation_code . ':section-webmaster';
+        $mapping_roles_array['contentmanager'][] = $selected_organisation_code . ':section-communication';
+        break;
+
+      case 'national':
+        $mapping_roles_array['contentmanager'][] = $selected_organisation_code . ':country-communication';
+        break;
+
+      case 'international':
+        $mapping_roles_array['contentmanager'][] = 'INT:international-communication';
+        break;
+    }
+
+    // We loop the mapping array to compare each user_role with the map_roles we
+    // have got from the OAuth context. If the user has any of the map_roles
+    // in its context, then we assign the associated user_role to its account.
+    // If the user does not have that set of map_roles for that user_role, but
+    // the user has the role assigned (meaning the map_role has been revoked),
+    // then we remove the existing user_role from the user as well.
+    foreach ($mapping_roles_array as $role => $mapped_roles) {
+      if (!empty(array_intersect($mapped_roles, $groups))) {
+        $account->addRole($role);
+      }
+      else {
+        if ($account->hasRole($role)) {
+          $account->removeRole($role);
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function satellite_user_form_alter(array &$form, FormStateInterface $form_state, string $form_id): void {
+
+  if ($form_id === 'user_form') {
+    /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
+    $form_object = $form_state->getformObject();
+    /** @var \Drupal\user\UserInterface $user */
+    $user = $form_object->getEntity();
+
+    /** @var \Drupal\externalauth\AuthmapInterface $authmap */
+    $authmap = \Drupal::service('externalauth.authmap');
+    $external_user = $authmap->getAll($user->id());
+    // We check if the user login is external (OAuth/CAS) or not (Drupal login);
+    // allowing only to the latest to update their email and password.
+    if (!empty($external_user)) {
+
+      // And we add a message first to indicate why they are disabled.
+      $form['text_disable'] = [
+        '#markup' => 'You are using an external login system. Some fields have been disabled in this form, as the data is retrieved from ESN Accounts.
+        <br>To have this account updated, please edit the information in your ESN Accounts profile, and the next time you log in here, it will be updated.',
+        '#prefix' => '<div class="alert alert-info my-4">',
+        '#suffix' => '</div>',
+        '#weight' => -50,
+      ];
+      // We restrict editing the email and username fields.
+      $form['account']['mail']['#disabled'] = TRUE;
+      $form['account']['name']['#disabled'] = TRUE;
+    }
+  }
+}

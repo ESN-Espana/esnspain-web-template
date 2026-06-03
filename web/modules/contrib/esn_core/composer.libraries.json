@@ -1,0 +1,44 @@
+{
+  "name": "esn/esn_core",
+  "type": "drupal-module",
+  "description": "Core module that contains common elements to be used by other ESN modules.",
+  "license": "GPL-2.0+",
+  "minimum-stability": "dev",
+  "homepage": "https://git.esn.org/composer/drupal-modules/esn-core",
+  "authors": [
+    {
+      "name": "Gorka Guerrero",
+      "role": "Developer"
+    },
+    {
+      "name": "Dimitris Kritsotakis",
+      "role": "Maintainer"
+    }
+  ],
+  "support": {
+    "source": "https://git.esn.org/composer/drupal-modules/esn-core"
+  },
+  "repositories": {
+    "flag-icons": {
+      "type": "package",
+      "package": {
+        "name": "lipis/flag-icons",
+        "version": "7.5.0",
+        "type": "drupal-library",
+        "extra": {
+          "installer-name": "flag-icons"
+        },
+        "dist": {
+          "url": "https://github.com/lipis/flag-icons/archive/refs/tags/v7.5.0.tar.gz",
+          "type": "tar"
+        },
+        "require": {
+          "composer/installers": "^1.2.0||^2.0"
+        }
+      }
+    }
+  },
+  "require": {
+    "lipis/flag-icons": "7.5.0"
+  }
+}

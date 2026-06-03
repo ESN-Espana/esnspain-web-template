@@ -1,0 +1,18 @@
+# Set configuration defaults. This schema describes the esn_accounts_sync.settings
+# config. The defaults for this config are set in
+# config/install/esn_accounts_sync.settings.yml and then used by
+# \Drupal\esn_accounts_sync\Form\AccountSyncForm.
+# @see https://www.drupal.org/node/1905070
+esn_accounts_api.settings:
+  type: config_object
+  label: 'Account API sync settings'
+  mapping:
+    must_run:
+      type: boolean
+      label: 'Function will run when cron is executed'
+    sync_countries:
+      type: boolean
+      label: 'Function will run when cron is executed'
+    sync_sections:
+      type: boolean
+      label: 'Function will run when cron is executed'

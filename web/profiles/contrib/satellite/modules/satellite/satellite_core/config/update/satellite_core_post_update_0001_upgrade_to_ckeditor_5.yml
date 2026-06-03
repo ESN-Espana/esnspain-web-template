@@ -1,0 +1,384 @@
+editor.editor.basic_html:
+  expected_config:
+    editor: ckeditor
+    image_upload:
+      max_dimensions:
+        height: null
+        width: null
+    settings:
+      plugins: {  }
+      toolbar:
+        rows:
+          -
+            -
+              items:
+                - Bold
+                - Italic
+                - Underline
+              name: Formatting
+            -
+              items:
+                - DrupalLink
+                - DrupalUnlink
+              name: Links
+            -
+              items:
+                - BulletedList
+                - NumberedList
+              name: Lists
+            -
+              items:
+                - Blockquote
+                - DrupalImage
+              name: Media
+            -
+              items:
+                - Source
+              name: Tools
+            -
+              items:
+                - RemoveFormat
+                - JustifyLeft
+                - JustifyCenter
+                - JustifyRight
+                - JustifyBlock
+                - Outdent
+                - Indent
+              name: 'Text formatting'
+            -
+              items:
+                - Undo
+                - Redo
+                - '-'
+                - Cut
+                - Copy
+                - Paste
+                - PasteText
+                - PasteFromWord
+              name: Actions
+  update_actions:
+    delete:
+      settings:
+        toolbar:
+          rows:
+            -
+              -
+                items:
+                  - Bold
+                  - Italic
+                  - Underline
+                name: Formatting
+              -
+                items:
+                  - DrupalLink
+                  - DrupalUnlink
+                name: Links
+              -
+                items:
+                  - BulletedList
+                  - NumberedList
+                name: Lists
+              -
+                items:
+                  - Blockquote
+                  - DrupalImage
+                name: Media
+              -
+                items:
+                  - Source
+                name: Tools
+              -
+                items:
+                  - RemoveFormat
+                  - JustifyLeft
+                  - JustifyCenter
+                  - JustifyRight
+                  - JustifyBlock
+                  - Outdent
+                  - Indent
+                name: 'Text formatting'
+              -
+                items:
+                  - Undo
+                  - Redo
+                  - '-'
+                  - Cut
+                  - Copy
+                  - Paste
+                  - PasteText
+                  - PasteFromWord
+                name: Actions
+    change:
+      editor: ckeditor5
+      image_upload:
+        max_dimensions:
+          height: 0
+          width: 0
+      settings:
+        plugins:
+          ckeditor5_alignment:
+            enabled_alignments:
+              - left
+              - center
+              - right
+              - justify
+          ckeditor5_heading:
+            enabled_headings:
+              - heading2
+              - heading3
+              - heading4
+              - heading5
+              - heading6
+          ckeditor5_imageResize:
+            allow_resize: true
+          ckeditor5_list:
+            reversed: false
+            startIndex: true
+          ckeditor5_sourceEditing:
+            allowed_tags:
+              - '<cite>'
+              - '<dl>'
+              - '<dt>'
+              - '<dd>'
+              - '<span>'
+              - '<h2 id>'
+              - '<h3 id>'
+              - '<h4 id>'
+              - '<h5 id>'
+              - '<h6 id>'
+              - '<a hreflang>'
+              - '<blockquote cite>'
+              - '<ul type>'
+              - '<ol type>'
+              - '<img data-entity-type data-entity-uuid>'
+        toolbar:
+          items:
+            - bold
+            - italic
+            - underline
+            - '|'
+            - link
+            - '|'
+            - bulletedList
+            - numberedList
+            - '|'
+            - blockQuote
+            - drupalInsertImage
+            - '|'
+            - sourceEditing
+            - '|'
+            - removeFormat
+            - alignment
+            - outdent
+            - indent
+            - '|'
+            - undo
+            - redo
+            - '|'
+            - code
+            - heading
+editor.editor.full_html:
+  expected_config:
+    editor: ckeditor
+    image_upload:
+      max_dimensions:
+        height: null
+        width: null
+    settings:
+      plugins: {  }
+      toolbar:
+        rows:
+          -
+            -
+              items:
+                - Bold
+                - Italic
+                - Strike
+                - Underline
+                - Superscript
+                - Subscript
+                - RemoveFormat
+              name: Formatting
+            -
+              items:
+                - DrupalLink
+                - DrupalUnlink
+              name: Links
+            -
+              items:
+                - BulletedList
+                - NumberedList
+              name: Lists
+            -
+              items:
+                - Blockquote
+                - DrupalImage
+                - Table
+                - HorizontalRule
+              name: Media
+            -
+              items:
+                - Source
+                - ShowBlocks
+                - Undo
+                - Redo
+              name: Tools
+            -
+              items:
+                - Format
+                - '-'
+                - JustifyLeft
+                - JustifyCenter
+                - JustifyRight
+                - JustifyBlock
+                - Indent
+                - Outdent
+              name: 'Text formatting'
+            -
+              items:
+                - Cut
+                - Copy
+                - Paste
+                - PasteText
+                - PasteFromWord
+              name: 'Text editing'
+  update_actions:
+    delete:
+      settings:
+        toolbar:
+          rows:
+            -
+              -
+                items:
+                  - Bold
+                  - Italic
+                  - Strike
+                  - Underline
+                  - Superscript
+                  - Subscript
+                  - RemoveFormat
+                name: Formatting
+              -
+                items:
+                  - DrupalLink
+                  - DrupalUnlink
+                name: Links
+              -
+                items:
+                  - BulletedList
+                  - NumberedList
+                name: Lists
+              -
+                items:
+                  - Blockquote
+                  - DrupalImage
+                  - Table
+                  - HorizontalRule
+                name: Media
+              -
+                items:
+                  - Source
+                  - ShowBlocks
+                  - Undo
+                  - Redo
+                name: Tools
+              -
+                items:
+                  - Format
+                  - '-'
+                  - JustifyLeft
+                  - JustifyCenter
+                  - JustifyRight
+                  - JustifyBlock
+                  - Indent
+                  - Outdent
+                name: 'Text formatting'
+              -
+                items:
+                  - Cut
+                  - Copy
+                  - Paste
+                  - PasteText
+                  - PasteFromWord
+                name: 'Text editing'
+    change:
+      editor: ckeditor5
+      image_upload:
+        max_dimensions:
+          height: 0
+          width: 0
+      settings:
+        plugins:
+          ckeditor5_alignment:
+            enabled_alignments:
+              - left
+              - center
+              - right
+              - justify
+          ckeditor5_heading:
+            enabled_headings:
+              - heading2
+              - heading3
+              - heading4
+              - heading5
+              - heading6
+          ckeditor5_imageResize:
+            allow_resize: true
+          ckeditor5_list:
+            reversed: true
+            startIndex: true
+          ckeditor5_sourceEditing:
+            allowed_tags: {  }
+        toolbar:
+          items:
+            - bold
+            - italic
+            - strikethrough
+            - underline
+            - superscript
+            - subscript
+            - removeFormat
+            - '|'
+            - link
+            - '|'
+            - bulletedList
+            - numberedList
+            - '|'
+            - blockQuote
+            - drupalInsertImage
+            - insertTable
+            - horizontalLine
+            - '|'
+            - sourceEditing
+            - undo
+            - redo
+            - '|'
+            - heading
+            - codeBlock
+            - alignment
+            - indent
+            - outdent
+filter.format.basic_html:
+  expected_config:
+    filters:
+      filter_html:
+        settings:
+          allowed_html: '<a href hreflang> <em> <strong> <cite> <blockquote cite> <code> <ul type> <ol type start> <li> <dl> <dt> <dd> <h2 id> <h3 id> <h4 id> <h5 id> <h6 id> <p> <br> <span> <img src alt data-entity-type data-entity-uuid data-align data-caption width height>'
+  update_actions:
+    change:
+      filters:
+        filter_html:
+          settings:
+            allowed_html: '<br> <p class="text-align-left text-align-center text-align-right text-align-justify"> <h2 id class="text-align-left text-align-center text-align-right text-align-justify"> <h3 id class="text-align-left text-align-center text-align-right text-align-justify"> <h4 id class="text-align-left text-align-center text-align-right text-align-justify"> <h5 id class="text-align-left text-align-center text-align-right text-align-justify"> <h6 id class="text-align-left text-align-center text-align-right text-align-justify"> <cite> <dl> <dt> <dd> <span> <a hreflang href> <blockquote cite> <ul type> <ol type start> <img data-entity-type data-entity-uuid src alt height width data-caption data-align> <strong> <em> <u> <code> <li>'
+filter.format.full_html:
+  expected_config:
+    filters:
+      filter_html:
+        settings:
+          allowed_html: '<a href hreflang> <em> <strong> <cite> <blockquote cite> <code> <ul type> <ol start type=''1 A I''> <li> <dl> <dt> <dd> <h2 id=''jump-*''> <h3 id> <h4 id> <h5 id> <h6 id>'
+  update_actions:
+    change:
+      filters:
+        filter_html:
+          settings:
+            allowed_html: ''

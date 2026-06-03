@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.esn_organisation.field_state
+    - esn_accounts_api.esn_organisation_type.section
+id: esn_organisation.section.field_state
+field_name: field_state
+entity_type: esn_organisation
+bundle: section
+label: State
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

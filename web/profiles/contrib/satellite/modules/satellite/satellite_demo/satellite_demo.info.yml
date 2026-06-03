@@ -1,0 +1,21 @@
+name: 'Satellite Demo'
+type: module
+description: 'Satellite 5 Demo content.'
+core_version_requirement: ^10 || ^11
+project: satellite_demo
+package: 'ESN Satellite'
+version: '5.1.1'
+
+# Dependencies that ESN Satellite can not live without
+dependencies:
+  # Core
+  - drupal:migrate
+  - drupal:node
+  - drupal:taxonomy
+  - drupal:user
+  # Contrib
+  - migrate_tools:migrate_tools
+  - migrate_plus:migrate_plus
+  # Satellite
+  - satellite:satellite_paragraphs
+#  - satellite:satellite_spotlight

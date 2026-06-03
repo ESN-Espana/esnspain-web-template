@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.esn_organisation.field_university_name
+    - esn_accounts_api.esn_organisation_type.section
+id: esn_organisation.section.field_university_name
+field_name: field_university_name
+entity_type: esn_organisation
+bundle: section
+label: 'University name'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

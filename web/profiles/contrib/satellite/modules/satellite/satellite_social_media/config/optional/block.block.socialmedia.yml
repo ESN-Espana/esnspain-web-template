@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - satellite_social_media
+  theme:
+    - satellite_theme
+id: socialmedia
+theme: satellite_theme
+region: navbar_right
+weight: 0
+provider: null
+plugin: satellite_social_media
+settings:
+  id: satellite_social_media
+  label: 'Social Media'
+  label_display: '0'
+  provider: satellite_social_media
+visibility: {  }

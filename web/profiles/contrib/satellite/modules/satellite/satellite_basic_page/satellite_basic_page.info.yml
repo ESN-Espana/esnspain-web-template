@@ -1,0 +1,23 @@
+name: 'Satellite Basic Page'
+type: module
+description: 'Basic page bundle and fields'
+core_version_requirement: ^10 || ^11
+project: satellite_basic_page
+package: 'ESN Satellite'
+
+version: '5.1.1'
+
+# Dependencies that ESN Satellite can not live without
+dependencies:
+  # Core
+  - drupal:menu_ui
+  - drupal:node
+  - drupal:path
+  - drupal:text
+  - drupal:user
+  # Contrib
+  - entity_reference_revisions:entity_reference_revisions
+  - pathauto:pathauto
+  - paragraphs:paragraphs
+  # Satellite
+  - satellite:satellite_paragraphs

@@ -1,0 +1,33 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_image_media
+    - media.type.image
+    - node.type.news
+  content:
+    - 'media:image:9916b40b-d139-4866-b350-599bf75479f4'
+id: node.news.field_image_media
+field_name: field_image_media
+entity_type: node
+bundle: news
+label: 'Image media'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    target_uuid: 9916b40b-d139-4866-b350-599bf75479f4
+    weight: 0
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

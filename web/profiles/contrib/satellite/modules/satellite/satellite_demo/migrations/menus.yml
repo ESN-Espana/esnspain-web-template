@@ -1,0 +1,55 @@
+# Import menu links to default pages, like About us.
+id: menus
+migration_group: satellite_demo
+label: 'Create main menu links'
+migration_tags:
+  - Satellite Demo
+  - Satellite Menus
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      title: 'About us'
+      menu_name: 'main'
+      link: '<front>'
+      weight: 2
+      expanded: 0
+    -
+      id: 2
+      title: 'ESNcard'
+      menu_name: 'main'
+      link: '<front>'
+      weight: 2
+      expanded: 0
+    -
+      id: 3
+      title: 'Join us'
+      menu_name: 'main'
+      link: '<front>'
+      weight: 3
+      expanded: 1
+    -
+      id: 4
+      title: 'Volunteering'
+      menu_name: 'main'
+      link: '<front>'
+      weight: 3
+      expanded: 1
+  ids:
+    id:
+      type: integer
+process:
+  bundle:
+    plugin: default_value
+    default_value: menu_link_content
+  title: title
+  menu_name: menu_name
+  link/uri:
+    plugin: link_uri
+    source: link
+  weight: weight
+  expanded: expanded
+  link/options: '@opts'
+destination:
+  plugin: entity:menu_link_content

@@ -1,0 +1,50 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.homepage_entry_info
+    - field.field.block_content.homepage_entry_info.field_category
+    - field.field.block_content.homepage_entry_info.field_paragraph_body
+    - field.field.block_content.homepage_entry_info.field_subtitle
+    - field.field.block_content.homepage_entry_info.field_title
+  module:
+    - entity_reference_revisions
+    - options
+id: block_content.homepage_entry_info.default
+targetEntityType: block_content
+bundle: homepage_entry_info
+mode: default
+content:
+  field_category:
+    type: list_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_paragraph_body:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_subtitle:
+    type: string
+    label: visually_hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_title:
+    type: string
+    label: visually_hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden: {  }

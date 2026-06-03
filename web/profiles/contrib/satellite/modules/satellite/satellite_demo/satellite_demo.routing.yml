@@ -1,0 +1,7 @@
+satellite_demo.execute_migrations:
+  path: '/satellite-demo/execute'
+  defaults:
+    _title: 'Execute Demo Content migration'
+    _controller: '\Drupal\satellite_demo\Controller\SatelliteDemoController::execute'
+  requirements:
+    _role: 'administrator'

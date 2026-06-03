@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * @file
+ * Contains esn_core.install.
+ */
+
+/**
+ * Implements hook_requirements().
+ */
+function esn_core_requirements($phase): array {
+
+  if ($phase !== 'runtime') {
+    return [];
+  }
+
+  // Check installed libraries.
+  $flag_icons_library = \Drupal::service('library.discovery')->getLibraryByName('esn_core', 'flag_icons');
+  $lib_installed = (isset($flag_icons_library['css'][0]['data']) ? file_exists(DRUPAL_ROOT . '/' . $flag_icons_library['css'][0]['data']) : FALSE);
+
+  if ($lib_installed) {
+    $requirements['esn_core_flagicons'] = [
+      'title' => t('ESN Core: Flag Icons'),
+      'value' => t('Flag Icons library is installed. Using %version version.', [
+        '%version' => $flag_icons_library['version'],
+      ]),
+      'description' => 'The library is required by the module ESN Core and installed locally via its composer.libraries.json, and will be loaded from this Drupal site.',
+      'severity' => REQUIREMENT_OK,
+    ];
+  }
+  else {
+    $requirements['esn_core_flagicons'] = [
+      'title' => t('ESN Core: Flag Icons'),
+      'value' => t('Flag Icons library is not installed'),
+      'description' => 'Please install the library as it is required by the ESN Core module. For more information see README.md file in the ESN Core module.',
+      'severity' => REQUIREMENT_ERROR,
+    ];
+  }
+
+  return $requirements;
+}

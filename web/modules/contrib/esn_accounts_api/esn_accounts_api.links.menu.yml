@@ -1,0 +1,7 @@
+# Menu for the module settings.
+esn_accounts_api.settings_form :
+  title: 'ESN Accounts API Settings'
+  parent: esn.settings
+  description: 'Configure the display of error messages and database logging.'
+  route_name: esn_accounts_api.settings_form
+  weight: -15

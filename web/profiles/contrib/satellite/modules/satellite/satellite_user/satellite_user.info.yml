@@ -1,0 +1,12 @@
+name: 'Satellite User'
+type: module
+description: 'Module to handle users and Oauth2 settings'
+core_version_requirement : ^9.1 || ^10 || ^11
+project: satellite_user
+package: 'ESN Satellite'
+version: '5.1.1'
+
+# Dependencies with other modules.
+dependencies:
+  - openid_connect:openid_connect
+  - drupal:user

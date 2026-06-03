@@ -1,0 +1,19 @@
+# Contains Social feature definitions for modules that are not controlled by
+# ESN Satellite. If at all possible use a `modulename.satellite_feature.yml` file in
+# the module directory instead.
+inline_form_errors:
+  name: Inline Form Errors
+  description: Shows errors in forms next to the incorrect field instead of at the top of the form.
+  default: true
+page_cache:
+  name: Anonymous page cache (recommended)
+  description: Cache page for anonymous users. Enable this if you do not have a web server to do this for you.
+  default: true
+dynamic_page_cache:
+  name: Dynamic page cache (recommended)
+  description: Caches parts of the page dynamically for any user.
+  default: true
+automated_cron:
+  name: Automated Cron
+  description: Provides an automated way to run cron jobs, by executing them at the end of a server response. (ONLY ENABLE IF YOU CANNOT CREATE CRON JOBS WITH YOUR WEBHOSTING!)
+  default: false

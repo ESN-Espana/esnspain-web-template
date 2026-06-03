@@ -1,0 +1,10 @@
+openid_connect.settings:
+  expected_config:
+    override_registration_settings: false
+    end_session_enabled: true
+    user_login_display: hidden
+  update_actions:
+    change:
+      override_registration_settings: true
+      end_session_enabled: false
+      user_login_display: above

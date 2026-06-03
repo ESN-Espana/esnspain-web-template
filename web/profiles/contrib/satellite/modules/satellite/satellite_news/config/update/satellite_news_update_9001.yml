@@ -1,0 +1,17 @@
+node.type.news:
+  expected_config: {  }
+  update_actions:
+    add:
+      third_party_settings:
+        menu_ui:
+          available_menus:
+            - main
+          parent: 'main:'
+views.view.news:
+  expected_config: {  }
+  update_actions:
+    add:
+      display:
+        block_1:
+          display_options:
+            block_hide_empty: true

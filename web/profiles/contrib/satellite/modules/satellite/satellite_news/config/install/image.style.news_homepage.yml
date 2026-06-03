@@ -1,0 +1,17 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - satellite_news # If we don't add this dependency, Drupal will not remove the image style when we uninstall our module.
+name: news_homepage
+label: 'News homepage'
+effects:
+  2059e39c-afbb-4461-9b75-be9357e8a19b:
+    uuid: 2059e39c-afbb-4461-9b75-be9357e8a19b
+    id: image_scale
+    weight: 1
+    data:
+      width: 286
+      height: null
+      upscale: false

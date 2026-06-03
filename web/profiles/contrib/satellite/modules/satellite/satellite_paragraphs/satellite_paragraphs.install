@@ -1,0 +1,193 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall module functions.
+ */
+
+use Drupal\Core\Config\FileStorage;
+
+/**
+ * Update view display settings on the paragraph types to visually hidden.
+ */
+function satellite_paragraphs_update_9001() {
+  /** @var \Drupal\update_helper\Updater $updater */
+  $updater = \Drupal::service('update_helper.updater');
+
+  // Execute configuration update definitions with logging of success.
+  $updater->executeUpdate('satellite_paragraphs', 'satellite_paragraphs_update_9001');
+
+  // Output logged messages to related channel of update execution.
+  return $updater->logger()->output();
+}
+
+/**
+ * Install the new field on text_image paragraph type.
+ */
+function satellite_paragraphs_update_9003() {
+
+  $module_handler = \Drupal::moduleHandler();
+
+  $config_storage = new FileStorage($module_handler->getModule('satellite_paragraphs')->getPath() . '/config/install');
+  $config_name = 'field.storage.paragraph.field_image_media';
+  $config_record = $config_storage->read($config_name);
+  $entity_type = \Drupal::service('config.manager')->getEntityTypeIdByName($config_name);
+  /** @var \Drupal\Core\Config\Entity\ConfigEntityStorageInterface $storage */
+  $storage = \Drupal::entityTypeManager()->getStorage($entity_type);
+  $entity = $storage->createFromStorageRecord($config_record);
+  $entity->save();
+
+  $config_storage = new FileStorage($module_handler->getModule('satellite_paragraphs')->getPath() . '/config/optional');
+  $config_name = 'field.field.paragraph.text_image.field_image_media';
+  $config_record = $config_storage->read($config_name);
+  $entity_type = \Drupal::service('config.manager')->getEntityTypeIdByName($config_name);
+  /** @var \Drupal\Core\Config\Entity\ConfigEntityStorageInterface $storage */
+  $storage = \Drupal::entityTypeManager()->getStorage($entity_type);
+  $entity = $storage->createFromStorageRecord($config_record);
+  $entity->save();
+
+  $field_media_name = 'field_image_media';
+  $field_image_name = 'field_image';
+
+  $field = \Drupal::entityTypeManager()->getStorage('field_config')->loadByProperties([
+    'field_name' => $field_media_name,
+    'entity_type' => 'paragraph',
+    'bundle' => 'text_image',
+  ]);
+  $field = reset($field);
+  $properties = [
+    'targetEntityType' => $field->getTargetEntityTypeId(),
+    'bundle' => $field->getTargetBundle(),
+  ];
+  if ($form_displays = \Drupal::entityTypeManager()->getStorage('entity_form_display')->loadByProperties($properties)) {
+    foreach ($form_displays as $form_display) {
+      $form_display->setComponent($field_media_name, [
+        'type' => 'media_library_widget',
+        'weight' => 2,
+        'region' => 'content',
+        'settings' => [
+          'media_types' => [],
+        ],
+        'third_party_settings' => [],
+      ])->save();
+
+      // Hide old image field.
+      $form_display->removeComponent($field_image_name)->save();
+    }
+  }
+
+  if ($view_displays = \Drupal::entityTypeManager()->getStorage('entity_view_display')->loadByProperties($properties)) {
+    foreach ($view_displays as $view_display) {
+      switch ($view_display->getMode()) {
+        case 'default':
+          $view_display
+            ->removeComponent($field_image_name)->save();
+          $view_display->setComponent($field_media_name, [
+            'type' => 'media_thumbnail',
+            'label' => 'hidden',
+            'settings' => [
+              'image_link' => '',
+              'image_style' => 'large',
+              'image_loading' => [
+                'attribute' => 'lazy',
+              ],
+            ],
+            'third_party_settings' => [],
+            'weight' => 3,
+            'region' => 'content',
+          ]);
+          $view_display->save();
+          break;
+      }
+    }
+  }
+
+}
+
+/**
+ * Install the new field on text_image paragraph type.
+ */
+function satellite_paragraphs_update_9004() {
+
+  $module_handler = \Drupal::moduleHandler();
+  $config_storage = new FileStorage($module_handler->getModule('satellite_paragraphs')->getPath() . '/config/install');
+
+  foreach (['field.storage.paragraph.field_image_position', 'field.field.paragraph.text_image.field_image_position'] as $config_name) {
+    $config_record = $config_storage->read($config_name);
+
+    $entity_type = \Drupal::service('config.manager')->getEntityTypeIdByName($config_name);
+    /** @var \Drupal\Core\Config\Entity\ConfigEntityStorageInterface $storage */
+    $storage = \Drupal::entityTypeManager()->getStorage($entity_type);
+    $entity = $storage->createFromStorageRecord($config_record);
+    $entity->save();
+  }
+
+  $field_name = 'field_image_position';
+
+  $field = \Drupal::entityTypeManager()->getStorage('field_config')->loadByProperties([
+    'field_name' => $field_name,
+    'entity_type' => 'paragraph',
+    'bundle' => 'text_image',
+  ]);
+  $field = reset($field);
+  $properties = [
+    'targetEntityType' => $field->getTargetEntityTypeId(),
+    'bundle' => $field->getTargetBundle(),
+  ];
+  if ($form_displays = \Drupal::entityTypeManager()->getStorage('entity_form_display')->loadByProperties($properties)) {
+    foreach ($form_displays as $form_display) {
+      $form_display->setComponent($field_name, [
+        'type' => 'options_select',
+        'weight' => 3,
+        'region' => 'content',
+        'settings' => [],
+        'third_party_settings' => [],
+      ])->save();
+    }
+  }
+
+  if ($view_displays = \Drupal::entityTypeManager()->getStorage('entity_view_display')->loadByProperties($properties)) {
+    foreach ($view_displays as $view_display) {
+      switch ($view_display->getMode()) {
+        case 'default':
+          $view_display
+            ->removeComponent($field_name)->save();
+          break;
+      }
+    }
+  }
+
+}
+
+/**
+ * Re-import configuration to make sure everything works fine.
+ */
+function satellite_paragraphs_update_9005() {
+  // Run this function only if 9003 and 9004 have run.
+  if (\Drupal::service('update.update_hook_registry')->getInstalledVersion('satellite_paragraphs') === 9004) {
+
+    $config_to_update = [
+      'optional' => [
+        'field.field.paragraph.text_image.field_image_media',
+      ],
+      'install' => [
+        'field.storage.paragraph.field_image_media',
+        'field.storage.paragraph.field_image_position',
+        'field.field.paragraph.text_image.field_image_position',
+      ],
+    ];
+
+    foreach ($config_to_update as $location => $config_names) {
+      $config_storage = new FileStorage(\Drupal::moduleHandler()->getModule('satellite_paragraphs')->getPath() . '/config/' . $location);
+      foreach ($config_names as $config_name) {
+        $config_record = $config_storage->read($config_name);
+        $entity_type = \Drupal::service('config.manager')->getEntityTypeIdByName($config_name);
+        /** @var \Drupal\Core\Config\Entity\ConfigEntityStorageInterface $storage */
+        $storage = \Drupal::entityTypeManager()->getStorage($entity_type);
+        $config_entity = $storage->load($config_record['id']);
+        $entity = $storage->updateFromStorageRecord($config_entity, $config_record);
+        $entity->save();
+      }
+    }
+  }
+}

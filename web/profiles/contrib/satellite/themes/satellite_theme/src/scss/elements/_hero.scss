@@ -1,0 +1,45 @@
+@import "../base/variables";
+
+.hero-image-container {
+  position: relative;
+  height: 100%;
+
+  img {
+    object-fit: cover;
+    height: 100%;
+  }
+}
+
+.hero-gradient {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  background: linear-gradient(to left, rgb(255 255 255 / 0%), rgb(0 174 239));
+}
+
+@media (max-width: 991px) {
+  .hero-gradient {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    background: linear-gradient(to top, rgb(255 255 255 / 0%), rgb(0 174 239));
+  }
+}
+
+.action-link {
+  color: rgb(242 242 242 / 70%); // TODO: name it later
+  text-decoration: none;
+  opacity: 0.7;
+  padding: 0;
+  margin-top: 4px;
+
+  &:hover {
+    opacity: 1;
+  }
+}

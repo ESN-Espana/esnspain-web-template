@@ -1,0 +1,12 @@
+name: 'ESN Core'
+type: module
+description: 'Provides basic functionalities to be used to all ESN websites.'
+core_version_requirement: ^9.1 || ^10.3 || ^11.2
+package: ESN
+php: 8.1
+
+dependencies:
+  - drupal:toolbar
+
+#Own data; this is generated in drupal but not compatible with ours.
+version: '1.0.2'

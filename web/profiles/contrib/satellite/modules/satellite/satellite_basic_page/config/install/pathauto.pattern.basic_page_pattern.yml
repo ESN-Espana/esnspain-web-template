@@ -1,0 +1,24 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - satellite_basic_page
+  module:
+    - node
+id: basic_page_pattern
+label: 'Basic page pattern'
+type: 'canonical_entities:node'
+pattern: '[node:title]'
+selection_criteria:
+  34fab450-2fc9-48f8-8c14-a8c7d87c7f86:
+    id: entity_bundle:node
+    negate: false
+    uuid: 34fab450-2fc9-48f8-8c14-a8c7d87c7f86
+    context_mapping:
+      node: node
+    bundles:
+      basic_page: basic_page
+selection_logic: and
+weight: -5
+relationships: {  }

@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - satellite_basic_page
+  config:
+    - field.storage.node.field_subtitle
+    - node.type.basic_page
+  module:
+    - text
+id: node.basic_page.field_subtitle
+field_name: field_subtitle
+entity_type: node
+bundle: basic_page
+label: Subtitle
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

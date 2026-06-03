@@ -1,0 +1,44 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.text_with_title_and_link.field_link
+    - field.field.paragraph.text_with_title_and_link.field_text
+    - field.field.paragraph.text_with_title_and_link.field_title
+    - paragraphs.paragraphs_type.text_with_title_and_link
+  module:
+    - link
+    - text
+id: paragraph.text_with_title_and_link.default
+targetEntityType: paragraph
+bundle: text_with_title_and_link
+mode: default
+content:
+  field_link:
+    type: link
+    label: visually_hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_text:
+    type: text_default
+    label: visually_hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_title:
+    type: string
+    label: visually_hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden: {  }

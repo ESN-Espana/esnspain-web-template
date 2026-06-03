@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  enforced :
+    module :
+      - satellite_homepage_block_info # If we don't add this dependency, Drupal will not remove the block type when we uninstall our module.
+id: homepage_entry_info
+label: 'Homepage entry info'
+revision: true
+description: ''

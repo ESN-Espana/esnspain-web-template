@@ -1,0 +1,12 @@
+services:
+  esn_accounts_api.sync_all_entities:
+    class: Drupal\esn_accounts_api\SyncDefaultEntity
+    arguments: ['@plugin.manager.esn_accounts_api', '@entity_type.manager', '@datetime.time', '@esn_accounts_api.esn_international']
+
+  esn_accounts_api.esn_international:
+    class: Drupal\esn_accounts_api\EsnInternationalManager
+    arguments: ['@entity_type.manager']
+
+  plugin.manager.esn_accounts_api:
+    class: Drupal\esn_accounts_api\AccountsEsnApiManager
+    arguments: ['@cache.discovery', '@module_handler']

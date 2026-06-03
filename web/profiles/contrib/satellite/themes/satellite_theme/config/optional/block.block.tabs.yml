@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  theme:
+    - satellite_theme
+id: tabs
+theme: satellite_theme
+region: header
+weight: null
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: ''
+  label_display: ''
+  provider: core
+  primary: true
+  secondary: true
+visibility: {  }

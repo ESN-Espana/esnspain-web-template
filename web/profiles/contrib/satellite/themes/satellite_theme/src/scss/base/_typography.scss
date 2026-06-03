@@ -1,0 +1,23 @@
+// Define your custom typorgraphy/classes here.
+// -----------------------------------------------------------------------------
+@import "variables";
+
+.navbar {
+  font-family: Nunito, sans-serif;
+}
+
+.color-cyan {
+  color: $esn-cyan;
+}
+
+.color-green {
+  color: $esn-green;
+}
+
+.color-magenta {
+  color: $esn-magenta;
+}
+
+.color-orange {
+  color: $esn-orange;
+}

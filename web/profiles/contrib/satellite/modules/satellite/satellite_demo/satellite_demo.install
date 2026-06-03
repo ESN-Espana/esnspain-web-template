@@ -1,0 +1,62 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the satellite_demo module.
+ */
+
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_install().
+ */
+function satellite_demo_install($is_syncing) {
+  // Add a variable to state to monitor the status of migration.
+  \Drupal::state()->set('satellite_demo_migrations_have_run', 0);
+
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function satellite_demo_uninstall($is_syncing) {
+  // Remove this variable from the system.
+  \Drupal::state()->delete('satellite_demo_migrations_have_run');
+}
+
+/**
+ * Implements hook_requirements().
+ */
+function satellite_demo_requirements($phase) {
+  $requirements = [];
+
+  if ($phase == 'runtime') {
+    $value = \Drupal::state()->get('satellite_demo_migrations_have_run');
+    if ($value) {
+      $message_text = t('Please disable this module, it is no longer required. Click <a href=":uninstall_link">here</a> to go the uninstall page.', [
+        ':uninstall_link' => Url::fromRoute('system.modules_uninstall')
+          ->toString(),
+      ]);
+      $requirements['satellite_demo_status'] = [
+        'title' => t('Satellite Demo Content migrated'),
+        'value' => "TRUE",
+        'description' => $message_text,
+        'severity' => REQUIREMENT_WARNING,
+      ];
+    }
+    else {
+      $message_text = t('Please go to <a href=":execution_link">this link</a> in order to create the demo content for this site. Then uninstall the module', [
+        ':execution_link' => Url::fromRoute('satellite_demo.execute_migrations')
+          ->toString(),
+      ]);
+      $requirements['satellite_demo_status'] = [
+        'title' => t('Satellite Demo Content migrated'),
+        'value' => "FALSE",
+        'description' => $message_text,
+        'severity' => REQUIREMENT_ERROR,
+      ];
+    }
+  }
+
+  return $requirements;
+}

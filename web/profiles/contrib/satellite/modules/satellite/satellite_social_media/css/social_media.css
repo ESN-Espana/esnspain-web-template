@@ -1,0 +1,44 @@
+#socialmedia ul {
+  padding: 0;
+  margin: 0;
+}
+
+#socialmedia ul li {
+  display: inline-block;
+  white-space: nowrap;
+  list-style: none outside none;
+  margin: 0 2px 4px 0;
+}
+
+#socialmedia ul li:last-child {
+  margin-right: 0;
+}
+
+#socialmedia ul li a {
+  display: inline-block;
+  height: 36px;
+  width: 36px;
+  text-indent: -9999px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 30px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 100px;
+  /*box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);*/
+}
+
+#socialmedia ul li a:hover {
+  opacity: 1;
+}
+
+.social-twitter {
+  background-image: url(../images/twitter.png);
+}
+
+.social-facebook {
+  background-image: url(../images/facebook.png);
+}
+
+.social-instagram {
+  background-image: url(../images/instagram.png);
+}

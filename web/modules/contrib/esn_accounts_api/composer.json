@@ -1,0 +1,24 @@
+{
+  "name": "esn/esn_accounts_api",
+  "type": "drupal-module",
+  "description": "Module that provides a basic connection to the ESN API via plugins, to be used by other modules",
+  "authors": [
+    {
+      "name": "Gorka Guerrero",
+      "role": "Developer"
+    },
+    {
+      "name": "Dimitris Kritsotakis",
+      "role": "Maintainer"
+    }
+  ],
+  "support": {
+    "source": "https://git.esn.org/composer/drupal-modules/esn-accounts-api"
+  },
+  "license": "GPL-2.0+",
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=7.4",
+    "esn/esn_core": "^1.0@beta"
+  }
+}

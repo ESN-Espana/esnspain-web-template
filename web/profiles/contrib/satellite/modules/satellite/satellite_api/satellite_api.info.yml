@@ -1,0 +1,13 @@
+name: 'Satellite API features'
+type: module
+description: 'API Implementations that are needed for Satellite, ie. Accounts API or ESNcard.org API'
+core_version_requirement: ^10 || ^11
+project: satellite_api
+package: 'ESN Satellite'
+version: '5.1.1'
+
+# Dependencies that ESN Satellite can not live without
+dependencies:
+  # Core
+  # Contrib
+  # Custom

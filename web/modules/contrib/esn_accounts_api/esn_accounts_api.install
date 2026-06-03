@@ -1,0 +1,175 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the esn_accounts_sync module.
+ */
+
+use Drupal\Core\Config\FileStorage;
+use Drupal\Core\Field\BaseFieldDefinition;
+
+/**
+ * Implements hook_install().
+ */
+function esn_accounts_api_install($is_syncing) {
+  $messages = \Drupal::service('esn_accounts_api.sync_all_entities')
+    ->syncAllIntoEntities();
+  foreach ($messages as $message) {
+    if ('status' === $message['type']) {
+      \Drupal::messenger()->addStatus($message['message']);
+      \Drupal::logger('esn_accounts_api')->info($message['message']);
+    }
+    if ('error' === $message['type']) {
+      \Drupal::messenger()->addError($message['message']);
+      \Drupal::logger('esn_accounts_api')->error($message['message']);
+    }
+  }
+}
+
+/**
+ * Update 9001 - Add new base fields to esn_organisation entity.
+ */
+function esn_accounts_api_update_9001() {
+  $field_address_definition = BaseFieldDefinition::create('string_long')
+    ->setLabel(t('Address'))
+    ->setDescription(t('The address of the organisation'))
+    ->setRequired(TRUE);
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('address', 'esn_organisation', 'esn_accounts_api', $field_address_definition);
+
+  $field_facebook_definition = BaseFieldDefinition::create('uri')
+    ->setLabel(t('Facebook Profile'))
+    ->setDescription('The uri for the Facebook page of the organisation')
+    ->setSetting('max_length', 255)
+    ->setSetting('case_sensitive', TRUE);
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('facebook', 'esn_organisation', 'esn_accounts_api', $field_facebook_definition);
+
+  $field_instagram_definition = BaseFieldDefinition::create('uri')
+    ->setLabel(t('instagram Profile'))
+    ->setDescription('The uri for the instagram page of the organisation')
+    ->setSetting('max_length', 255)
+    ->setSetting('case_sensitive', TRUE);
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('instagram', 'esn_organisation', 'esn_accounts_api', $field_instagram_definition);
+
+  $field_twitter_definition = BaseFieldDefinition::create('uri')
+    ->setLabel(t('Twitter Profile'))
+    ->setDescription('The uri for the Twitter page of the organisation')
+    ->setSetting('max_length', 255)
+    ->setSetting('case_sensitive', TRUE);
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('twitter', 'esn_organisation', 'esn_accounts_api', $field_twitter_definition);
+
+  $field_video_definition = BaseFieldDefinition::create('uri')
+    ->setLabel(t('Video of organisation Profile'))
+    ->setDescription('The uri for a video describing the organisation.')
+    ->setSetting('max_length', 255)
+    ->setSetting('case_sensitive', TRUE);
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('video', 'esn_organisation', 'esn_accounts_api', $field_video_definition);
+
+  $field_logo_definition = BaseFieldDefinition::create('string')
+    ->setLabel(t("Path of the logo of the organisation to ESN Accounts"))
+    ->setSetting('max_length', 100);
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('logo', 'esn_organisation', 'esn_accounts_api', $field_logo_definition);
+
+  // The last time the organisation was updated in Accounts.
+  $field_updated_api_definition = BaseFieldDefinition::create('timestamp')
+    ->setLabel(t('Timestamp API updated'))
+    ->setDescription(t('The last time the organisation was updated in Accounts.'))
+    ->setRequired(TRUE);
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('updated_api', 'esn_organisation', 'esn_accounts_api', $field_updated_api_definition);
+
+  $field_website_definition = BaseFieldDefinition::create('uri')
+    ->setLabel(t('Organisation website'))
+    ->setDescription('The website of the organisation.')
+    ->setSetting('max_length', 255)
+    ->setSetting('case_sensitive', TRUE);
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('website', 'esn_organisation', 'esn_accounts_api', $field_website_definition);
+}
+
+/**
+ * Update 9002 - Add new fields to bundles.
+ */
+function esn_accounts_api_update_9002() {
+
+  $array_fields = [
+    'cities' => [
+      'key_field' => 'esn_organisation.section.field_cities',
+      'field' => 'field.field.esn_organisation.section.field_cities',
+      'key_storage' => 'esn_organisation.field_cities',
+      'storage' => 'field.storage.esn_organisation.field_cities',
+    ],
+    'location' => [
+      'key_field' => 'esn_organisation.section.field_location',
+      'field' => 'field.field.esn_organisation.section.field_location',
+      'key_storage' => 'esn_organisation.field_location',
+      'storage' => 'field.storage.esn_organisation.field_location',
+    ],
+    'state' => [
+      'key_field' => 'esn_organisation.section.field_state',
+      'field' => 'field.field.esn_organisation.section.field_state',
+      'key_storage' => 'esn_organisation.field_state',
+      'storage' => 'field.storage.esn_organisation.field_state',
+    ],
+    'university_name' => [
+      'key_field' => 'esn_organisation.section.field_university_name',
+      'field' => 'field.field.esn_organisation.section.field_university_name',
+      'key_storage' => 'esn_organisation.field_university_name',
+      'storage' => 'field.storage.esn_organisation.field_university_name',
+    ],
+    'university_website' => [
+      'key_field' => 'esn_organisation.section.field_university_website',
+      'field' => 'field.field.esn_organisation.section.field_university_website',
+      'key_storage' => 'esn_organisation.field_university_website',
+      'storage' => 'field.storage.esn_organisation.field_university_website',
+    ],
+  ];
+
+  $files_path = drupal_get_path('module', 'esn_accounts_api') . '/config/install';
+  $config_manager = \Drupal::service('config.manager');
+  $source = new FileStorage($files_path);
+
+  $entity_type_manager = \Drupal::entityTypeManager();
+  $field_storage = $entity_type_manager->getStorage('field_storage_config');
+  $field_config = $entity_type_manager->getStorage('field_config');
+
+  foreach ($array_fields as $field_values) {
+
+    // Only try to create the field if it doesn't already exist.
+    if (!$field_storage->load($field_values['key_storage'])) {
+      $config_record = $source->read($field_values['storage']);
+      $entity_type = $config_manager->getEntityTypeIdByName($field_values['storage']);
+      /** @var \Drupal\Core\Config\Entity\ConfigEntityStorageInterface $storage */
+      $storage = $entity_type_manager->getStorage($entity_type);
+      // Create the config entity.
+      $storage->createFromStorageRecord($config_record)->save();
+    }
+  }
+
+  if (!$field_config->load($field_values['key_field'])) {
+    $config_record = $source->read($field_values['field']);
+    $entity_type = $config_manager->getEntityTypeIdByName($field_values['field']);
+    /** @var \Drupal\Core\Config\Entity\ConfigEntityStorageInterface $storage */
+    $storage = $entity_type_manager->getStorage($entity_type);
+    // Create the config entity.
+    $storage->createFromStorageRecord($config_record)->save();
+  }
+}
+
+/**
+ * Update 9003 - Add logo file ID field.
+ */
+function esn_accounts_api_update_9003() {
+  $field_logo_definition = BaseFieldDefinition::create('file')
+    ->setLabel(t("The file entity of the organisation's logo."))
+    ->setDefaultValue(NULL);
+
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('logo_file', 'esn_organisation', 'esn_accounts_api', $field_logo_definition);
+
+}

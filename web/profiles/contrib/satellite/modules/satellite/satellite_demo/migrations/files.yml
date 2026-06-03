@@ -1,0 +1,67 @@
+id: files
+label: Demo files
+migration_group: satellite_demo
+migration_tags:
+  - Satellite Demo
+  - Satellite Files
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      fid: 1
+      filename: spotlight.png
+  ids:
+    fid:
+      type: integer
+  # Since we are writing YAML, we do not have ways to manipulate
+  # fields like we do in PHP. However, we can use migration process
+  # plugins. These plugins can use migration-specific "constants"
+  # to generate file paths and URIs.
+  #
+  # Here, we define constants which we would use to generate file paths
+  # and file names for program images.
+  constants:
+    # You may need to change this path if you cannot place your module
+    # in a directory called simply “sample”.
+    files_path_rel: modules/satellite/satellite_demo/files/
+    dest_path: public://
+process:
+  profile_absolute_path:
+    plugin: callback
+    callable: _satellite_get_profile_path
+    unpack_source: true
+    source: [  ]
+  files_path:
+    plugin: concat
+    source:
+      - '@profile_absolute_path'
+      - constants/files_path_rel
+    delimiter: /
+  file_source:
+    plugin: concat
+    source:
+      - '@files_path'
+      - filename
+  file_dest:
+    plugin: concat
+    source:
+      - constants/dest_path
+      - filename
+  uid:
+    plugin: default_value
+    default_value: 1
+  fid:
+    plugin: custom_file_exists
+    source: fid
+    entity_type: file
+  status:
+    plugin: default_value
+    default_value: 2
+  filename: filename
+  uri:
+    plugin: file_copy
+    source:
+      - '@file_source'
+      - '@file_dest'
+destination:
+  plugin: entity:file

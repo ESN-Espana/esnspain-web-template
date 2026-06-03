@@ -1,0 +1,49 @@
+<?php
+
+/**
+ * @file
+ * Module file of esn_accounts_sync.
+ */
+
+/**
+ * Implements hook_cron().
+ *
+ * We implement hook_cron() to synchronize ESN Accounts information.
+ * It gets called every time the Drupal cron runs. If enabled, it will be
+ * executed and the information from the API will be fetched.
+ */
+function esn_accounts_api_cron() {
+  // We access our configuration.
+  $cron_config = \Drupal::configFactory()
+    ->getEditable('esn_accounts_api.settings');
+  // Get the value of the setting and check if we must run the sync with cron().
+  $must_run = $cron_config->get('must_run');
+
+  // If we have set this to be executed with cron().
+  if ($must_run) {
+
+    $sync_countries = $cron_config->get('sync_countries');
+    $sync_sections = $cron_config->get('sync_sections');
+    $messages = [];
+    // Then the info will be fetched and updated each time cron() is executed.
+    $messages[] = \Drupal::service('esn_accounts_api.esn_international')
+      ->checkAddNotFound();
+    if ($sync_countries) {
+      $messages[] = \Drupal::service('esn_accounts_api.sync_all_entities')
+        ->syncCountriesIntoEntity();
+    }
+    if ($sync_sections) {
+      $messages[] = \Drupal::service('esn_accounts_api.sync_all_entities')
+        ->syncSectionsIntoEntity();
+    }
+
+    foreach ($messages as $message) {
+      if ('status' === $message['type']) {
+        \Drupal::logger('esn_accounts_api')->info($message['message']);
+      }
+      elseif ('error' === $message['type']) {
+        \Drupal::logger('esn_accounts_api')->error($message['message']);
+      }
+    }
+  }
+}

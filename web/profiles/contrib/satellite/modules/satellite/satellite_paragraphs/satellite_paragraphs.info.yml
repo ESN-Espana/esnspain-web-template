@@ -1,0 +1,20 @@
+name: Satellite Paragraphs
+type: module
+description: Paragraphs types for Satellite 5
+core_version_requirement: ^10 || ^11
+project: satellite_paragraphs
+package: ESN Satellite
+version: '5.1.1'
+dependencies:
+  # Core
+  - drupal:node
+  - drupal:field
+  - drupal:link
+  - drupal:image
+  - drupal:text
+  - drupal:link
+  # Contrib
+  - paragraphs:paragraphs
+  # Custom
+  - satellite:satellite_media
+  - satellite:satellite_core

@@ -1,0 +1,4 @@
+name: News
+description: 'ESN Satellite News content type and display'
+default: false
+weight: 10

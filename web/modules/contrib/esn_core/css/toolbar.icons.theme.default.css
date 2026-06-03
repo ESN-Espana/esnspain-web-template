@@ -1,0 +1,10 @@
+/**
+ * Main menu icons for default.
+ */
+.toolbar-icon-esn-settings:before {
+  background-image: url(../images/icons/787878/toolbar.svg);
+}
+.toolbar-icon-esn-settings:active:before,
+.toolbar-icon-esn-settings.is-active:before {
+  background-image: url(../images/icons/000000/toolbar.svg);
+}

@@ -1,0 +1,25 @@
+gin_toolbar:
+  version: '1.0.0'
+  css:
+    theme:
+      css/toolbar.icons.theme.gin.css: {}
+
+default_toolbar:
+  version: '1.0.0'
+  css:
+    theme:
+      css/toolbar.icons.theme.default.css: {}
+  dependencies:
+    - 'toolbar/toolbar'
+
+# Library for the CSS implementation of country flags.
+flag_icons:
+  remote: &flag_icons_remote https://github.com/lipis/flag-icons/archive/refs/tags/v7.5.0.tar.gz
+  license: &flag_icons_license
+    name: MIT license
+    url: https://github.com/lipis/flag-icons?tab=MIT-1-ov-file
+    gpl-compatible: true
+  version: &flag_icons_version "7.5.0"
+  css:
+    theme:
+      /libraries/flag-icons/css/flag-icons.min.css: { minified: true }

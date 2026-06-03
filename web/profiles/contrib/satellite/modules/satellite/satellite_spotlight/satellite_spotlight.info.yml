@@ -1,0 +1,19 @@
+name: 'Satellite Spotlight'
+type: module
+description: 'News content bundle, views etc.'
+core_version_requirement : ^10 || ^11
+project: satellite_news
+package: 'ESN Satellite'
+version: '5.1.1'
+dependencies:
+  # Core
+  - drupal:block_content
+  - drupal:views
+  - drupal:field
+  - drupal:text
+  - drupal:file
+  - drupal:image
+  - drupal:link
+  # Contrib
+  - focal_point:focal_point
+  # Custom

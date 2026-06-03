@@ -1,0 +1,6 @@
+# Default form values for \Drupal\esn_accounts_sync\Form\AccountSyncForm.
+# @see examples/esn_accounts_sync/config/schema/esn_accounts_sync.schema.yml
+# @see \Drupal\esn_accounts_sync\Form\AccountSyncForm::getEditableConfigNames()
+must_run: FALSE
+sync_countries: TRUE
+sync_sections: TRUE

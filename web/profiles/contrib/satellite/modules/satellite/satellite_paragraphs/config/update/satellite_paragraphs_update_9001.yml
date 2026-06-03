@@ -1,0 +1,85 @@
+core.entity_form_display.paragraph.text_image.default:
+  expected_config:
+    content:
+      field_image:
+        weight: 1
+      field_text:
+        weight: 0
+  update_actions:
+    change:
+      content:
+        field_image:
+          weight: 2
+        field_text:
+          weight: 1
+        field_title:
+          region: content
+          settings:
+            placeholder: ''
+            size: 60
+          third_party_settings: {  }
+          type: string_textfield
+          weight: 0
+core.entity_view_display.paragraph.image_gallery.default:
+  expected_config:
+    content:
+      field_image_gallery:
+        label: above
+  update_actions:
+    change:
+      content:
+        field_image_gallery:
+          label: visually_hidden
+core.entity_view_display.paragraph.text_image.default:
+  expected_config:
+    content:
+      field_image:
+        label: above
+        settings:
+          image_link: ''
+        type: image
+        weight: 1
+      field_text:
+        label: above
+        weight: 0
+  update_actions:
+    delete:
+      content:
+        field_image:
+          settings:
+            image_link: ''
+    change:
+      content:
+        field_image:
+          label: visually_hidden
+          type: image_url
+          weight: 2
+        field_text:
+          label: visually_hidden
+          weight: 1
+        field_title:
+          label: visually_hidden
+          region: content
+          settings:
+            link_to_entity: false
+          third_party_settings: {  }
+          type: string
+          weight: 0
+core.entity_view_display.paragraph.text_with_title_and_link.default:
+  expected_config:
+    content:
+      field_link:
+        label: hidden
+      field_text:
+        label: hidden
+      field_title:
+        label: hidden
+  update_actions:
+    change:
+      content:
+        field_link:
+          label: visually_hidden
+        field_text:
+          label: visually_hidden
+        field_title:
+          label: visually_hidden

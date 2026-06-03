@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - satellite_news # If we don't add this dependency, Drupal will not remove the taxonomy when we uninstall our module.
+name: 'News categories'
+vid: news_categories
+description: null
+weight: 0
+new_revision: false

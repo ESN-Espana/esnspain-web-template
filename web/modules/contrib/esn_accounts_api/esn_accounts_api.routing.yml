@@ -1,0 +1,7 @@
+esn_accounts_api.settings_form:
+  path: 'admin/config/esn/accounts-api'
+  defaults:
+    _form: '\Drupal\esn_accounts_api\Form\AccountSyncForm'
+    _title: 'Manage ESN Accounts API'
+  requirements:
+    _permission: 'administer esn_accounts sync'

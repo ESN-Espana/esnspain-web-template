@@ -1,0 +1,10 @@
+accounts.countries:
+  label: 'Countries Endpoint'
+  endpoint: countries
+  base_uri: 'https://accounts.esn.org/'
+  version: 'api/v2/'
+accounts.sections:
+  label: 'Sections Endpoint'
+  endpoint: sections
+  base_uri: 'https://accounts.esn.org/'
+  version: 'api/v2/'

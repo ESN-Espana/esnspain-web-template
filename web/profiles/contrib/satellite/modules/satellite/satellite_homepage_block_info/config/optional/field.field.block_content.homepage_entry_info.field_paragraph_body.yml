@@ -1,0 +1,39 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.homepage_entry_info
+    - field.storage.block_content.field_paragraph_body
+    - paragraphs.paragraphs_type.text_with_title_and_link
+  module:
+    - entity_reference_revisions
+id: block_content.homepage_entry_info.field_paragraph_body
+field_name: field_paragraph_body
+entity_type: block_content
+bundle: homepage_entry_info
+label: Body
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      text_with_title_and_link: text_with_title_and_link
+    negate: 0
+    target_bundles_drag_drop:
+      image_gallery:
+        weight: 5
+        enabled: false
+      text:
+        weight: 6
+        enabled: false
+      text_image:
+        weight: 7
+        enabled: false
+      text_with_title_and_link:
+        weight: 8
+        enabled: true
+field_type: entity_reference_revisions

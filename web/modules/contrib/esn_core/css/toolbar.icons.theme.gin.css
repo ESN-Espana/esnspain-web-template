@@ -1,0 +1,8 @@
+/**
+ * Main menu icons for gin.
+ */
+
+.toolbar .toolbar-bar .toolbar-icon-esn-settings:before {
+  -webkit-mask-image: url(../images/icons/000000/toolbar.svg) !important;
+          mask-image: url(../images/icons/000000/toolbar.svg) !important;
+}

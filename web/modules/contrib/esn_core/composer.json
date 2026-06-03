@@ -1,0 +1,23 @@
+{
+  "name": "esn/esn_core",
+  "type": "drupal-module",
+  "description": "Core module that contains common elements to be used by other ESN modules.",
+  "authors": [
+    {
+      "name": "Gorka Guerrero",
+      "role": "Developer"
+    },
+    {
+      "name": "Dimitris Kritsotakis",
+      "role": "Maintainer"
+    }
+  ],
+  "support": {
+    "source": "https://git.esn.org/composer/drupal-modules/esn-core"
+  },
+  "license": "GPL-2.0+",
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=7.4"
+  }
+}

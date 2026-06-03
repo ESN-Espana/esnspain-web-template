@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * Module file of esn_core.
+ */
+
+/**
+ * Implements hook_element_info_alter().
+ */
+function esn_core_element_info_alter(array &$types) {
+  // Attach our extra CSS for toolbar icons.
+  if (isset($types['toolbar'])) {
+    if ('gin' === \Drupal::config('system.theme')->get('admin')) {
+      $types['toolbar']['#attached']['library'][] = 'esn_core/gin_toolbar';
+    }
+    else {
+      $types['toolbar']['#attached']['library'][] = 'esn_core/default_toolbar';
+    }
+  }
+}
