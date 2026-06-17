@@ -8,10 +8,10 @@ $directories = [
 ];
 
 foreach ($directories as $directory) {
-    if (!is_dir($directory) && !mkdir($directory, 0775, true) && !is_dir($directory)) {
+    if (!is_dir($directory) && !mkdir($directory, 0777, true) && !is_dir($directory)) {
         fwrite(STDERR, sprintf("Failed to create directory: %s\n", $directory));
         exit(1);
     }
 
-    chmod($directory, 0775);
+    chmod($directory, 0777);
 }
