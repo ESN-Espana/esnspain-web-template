@@ -10,6 +10,11 @@ services:
       - .env
     depends_on:
       - db
+    command: >
+      sh -c "mkdir -p web/sites/default/files config/sync &&
+      chown -R www-data:www-data web/sites/default/files config/sync &&
+      chmod -R 775 web/sites/default/files config/sync &&
+      apache2-foreground"
 
   db:
     image: mariadb:11
