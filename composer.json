@@ -15,7 +15,7 @@
     ],
     "require": {
         "php": "^8.0",
-        "esn/satellite-profile": "^5.1",
+        "esn/satellite-profile": "5.1.1",
         "symfony/dotenv": "^8.1"
     },
     "conflict": {
