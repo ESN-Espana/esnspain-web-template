@@ -5,5 +5,4 @@
 .env
 
 # Archivos generados
-/web/sites/default/files/
-
+/web/sites/default/files/*

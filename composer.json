@@ -32,6 +32,12 @@
             "mglaman/composer-drupal-lenient": true
         }
     },
+    "scripts": {
+        "post-install-cmd": [
+            "@prepare-drupal-filesystem"
+        ],
+        "prepare-drupal-filesystem": "@php scripts/prepare-drupal-filesystem.php"
+    },
     "extra": {
         "drupal-scaffold": {
             "locations": {
