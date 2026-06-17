@@ -44,3 +44,14 @@ if ($trustedHosts = getenv('TRUSTED_HOST_PATTERNS')) {
         explode(',', $trustedHosts)
     );
 }
+
+/**
+ * ESN Accounts OpenID Connect client credentials.
+ */
+if ($clientId = getenv('ESN_ACCOUNTS_OPENID_CLIENT_ID')) {
+    $config['openid_connect.client.esn_accounts']['settings']['client_id'] = $clientId;
+}
+
+if ($clientSecret = getenv('ESN_ACCOUNTS_OPENID_CLIENT_SECRET')) {
+    $config['openid_connect.client.esn_accounts']['settings']['client_secret'] = $clientSecret;
+}
