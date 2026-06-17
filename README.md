@@ -1,14 +1,26 @@
 # esnspain-web-template
 
-## Environment variables
+## Getting started
 
-The project requires a `.env` file with the environment-specific configuration values. A `.env.example` file is provided as a template with the variables that need to be defined.
+After cloning the repository, install the Composer dependencies:
 
-Copy the example file and fill in the values for your environment:
+```bash
+composer install
+```
+
+This installs the project dependencies in `vendor/` and generates Drupal scaffold files such as `web/autoload.php`.
+
+Then create the local environment file from the provided template:
 
 ```bash
 cp .env.example .env
 ```
+
+Fill in the values in `.env` for your environment before running the site.
+
+## Environment variables
+
+The project requires a `.env` file with the environment-specific configuration values. A `.env.example` file is provided as a template with the variables that need to be defined.
 
 ### HASH_SALT
 
