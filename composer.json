@@ -36,9 +36,6 @@
         "post-install-cmd": [
             "@prepare-drupal-filesystem"
         ],
-        "post-update-cmd": [
-            "@prepare-drupal-filesystem"
-        ],
         "prepare-drupal-filesystem": "@php scripts/prepare-drupal-filesystem.php"
     },
     "extra": {
