@@ -26,9 +26,9 @@ $databases['default']['default'] = [
 
  $settings['hash_salt'] = $hashSalt;
 
- /**
-  + Configuration synchronization directory.
-  */
+/**
+ * Configuration synchronization directory.
+ */
 $settings['config_sync_directory'] = '../config/sync';
 
 /**
@@ -43,4 +43,4 @@ if ($trustedHosts = getenv('TRUSTED_HOST_PATTERNS')) {
         'trim',
         explode(',', $trustedHosts)
     );
-)
+}
