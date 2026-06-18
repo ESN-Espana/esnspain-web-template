@@ -1,5 +1,10 @@
 <?php
 
+$dotenvPath = dirname(__DIR__, 3) . '/.env';
+
+if (file_exists($dotenvPath) && class_exists(\Symfony\Component\Dotenv\Dotenv::class)) {
+    (new \Symfony\Component\Dotenv\Dotenv())->usePutenv()->load($dotenvPath);
+}
 
 /**
  * Database configuration from environment variables.
